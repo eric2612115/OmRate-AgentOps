@@ -1,0 +1,4 @@
+kind: protocol_validation
+protocol: aave_v3
+ruleset_version: ruleset_2026_04_07
+generated_at: '2026-04-07T10:04:47+00:00'

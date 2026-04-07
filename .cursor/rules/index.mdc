@@ -1,0 +1,34 @@
+---
+description: OmRate-AgentOps repo index for Cursor agents
+alwaysApply: true
+---
+
+# OmRate-AgentOps — Cursor rules index
+
+Read this file first when working in this repository.
+
+## What this repo is
+
+Control plane for OmRate **validation orchestration**: manifests, protocol rules, known gaps, reports, and runbooks. Not the application backend or frontend.
+
+## Where to look
+
+| Area | Path |
+| ---- | ---- |
+| Overview | `README.md`, `CLAUDE.md` |
+| Manifests | `manifests/` |
+| Protocol rules | `protocol-rules/` |
+| Known gaps | `known-gaps/` |
+| Reports | `reports/` |
+| Runbooks | `runbooks/` |
+| Tests | `tests/` |
+| Python project | `pyproject.toml` |
+| Env template | `.env.example` |
+
+## Sibling repos (outside this tree)
+
+- `../OmRate-Backend`
+- `../OmRate-frontend`
+- `../Phalanx-Skill`
+
+Do not assume sibling code is present; reference paths are for documentation and cross-repo workflows.
