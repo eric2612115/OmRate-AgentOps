@@ -31,6 +31,18 @@ Use those paths when linking docs or automation that spans repos.
 
 Copy `.env.example` to `.env` and fill placeholders for your environment. Do not commit secrets.
 
+## Live validation sync rules
+
+If you change any of the following, update code, tests, and runbooks in the same change:
+
+- `protocol-rules/official-sources.yaml`
+- browser result semantics (`PASS` / `FAIL` / `BLOCKED`)
+- report artifact schema in `validators/report_schema.py`
+- matrix runner or push-gate CLI behavior
+- operational prerequisites, stop conditions, or operator flow in `runbooks/`
+
+Use `runbooks/session-prompt-live-validation.md` when resuming this workflow in a future session.
+
 ## Minimal verify
 
 Run `python3 -m pytest tests/test_repo_layout.py -v` from the `OmRate-AgentOps` repo root.

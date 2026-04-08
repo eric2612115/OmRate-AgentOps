@@ -84,12 +84,19 @@ def test_backend_validation_client_routes() -> None:
                 "actor_type": "agent",
             },
         )
+        client.list_protocols()
         client.list_protocol_runs(protocol="morpho", limit=5)
         client.attach_validation_evidence("run_abc", {"kind": "browser"})
         client.list_validation_evidence("run_abc", limit=10)
         client.list_market_tickets("mkt_1", limit=3)
         client.list_market_events("mkt_1", limit=7)
-        client.list_markets(protocol="aave_v3", limit=100)
+        client.list_markets(
+            protocol="aave_v3",
+            chain_id=1,
+            limit=100,
+            is_expired=False,
+            is_disabled=False,
+        )
     finally:
         client.close()
 
@@ -97,16 +104,17 @@ def test_backend_validation_client_routes() -> None:
     assert methods_and_paths[0] == ("POST", "/admin/validation/protocol-runs")
     assert methods_and_paths[1] == ("GET", "/admin/validation/protocol-runs/run_abc")
     assert methods_and_paths[2] == ("POST", "/admin/validation/protocol-runs")
-    assert methods_and_paths[3][0] == "GET"
-    assert methods_and_paths[3][1] == "/admin/validation/protocol-runs"
-    assert methods_and_paths[4] == (
+    assert methods_and_paths[3] == ("GET", "/protocols")
+    assert methods_and_paths[4][0] == "GET"
+    assert methods_and_paths[4][1] == "/admin/validation/protocol-runs"
+    assert methods_and_paths[5] == (
         "POST",
         "/admin/validation/protocol-runs/run_abc/evidence",
     )
-    assert methods_and_paths[5][1] == "/admin/validation/protocol-runs/run_abc/evidence"
-    assert methods_and_paths[6][1] == "/admin/validation/markets/mkt_1/verification-tickets"
-    assert methods_and_paths[7][1] == "/admin/validation/markets/mkt_1/events"
-    assert methods_and_paths[8][1] == "/markets"
+    assert methods_and_paths[6][1] == "/admin/validation/protocol-runs/run_abc/evidence"
+    assert methods_and_paths[7][1] == "/admin/validation/markets/mkt_1/verification-tickets"
+    assert methods_and_paths[8][1] == "/admin/validation/markets/mkt_1/events"
+    assert methods_and_paths[9][1] == "/markets"
 
     params_by_path = {httpx.URL(u).path: dict(p) for _, u, p in captured}
     assert params_by_path["/admin/validation/protocol-runs"] == {
@@ -118,7 +126,13 @@ def test_backend_validation_client_routes() -> None:
     }
     assert params_by_path["/admin/validation/markets/mkt_1/verification-tickets"] == {"limit": "3"}
     assert params_by_path["/admin/validation/markets/mkt_1/events"] == {"limit": "7"}
-    assert params_by_path["/markets"] == {"protocol": "aave_v3", "limit": "100"}
+    assert params_by_path["/markets"] == {
+        "protocol": "aave_v3",
+        "chain_id": "1",
+        "limit": "100",
+        "is_expired": "false",
+        "is_disabled": "false",
+    }
 
 
 def test_backend_client_json_body_on_create() -> None:

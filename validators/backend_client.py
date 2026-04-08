@@ -127,17 +127,31 @@ class BackendValidationClient:
         r.raise_for_status()
         return r.json()
 
+    def list_protocols(self) -> Any:
+        r = self._client.get("/protocols")
+        r.raise_for_status()
+        return r.json()
+
     def list_markets(
         self,
         *,
         protocol: str | None = None,
+        chain_id: int | None = None,
         limit: int | None = None,
+        is_expired: bool | None = None,
+        is_disabled: bool | None = None,
     ) -> Any:
         params: dict[str, Any] = {}
         if protocol is not None:
             params["protocol"] = protocol
+        if chain_id is not None:
+            params["chain_id"] = chain_id
         if limit is not None:
             params["limit"] = limit
+        if is_expired is not None:
+            params["is_expired"] = str(is_expired).lower()
+        if is_disabled is not None:
+            params["is_disabled"] = str(is_disabled).lower()
         r = self._client.get("/markets", params=params or None)
         r.raise_for_status()
         return r.json()

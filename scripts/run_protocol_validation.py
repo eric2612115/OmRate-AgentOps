@@ -30,6 +30,12 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--protocol", required=True, help="Protocol id filter, e.g. aave_v3")
     parser.add_argument("--limit", type=int, default=50, help="Max markets from GET /markets")
     parser.add_argument(
+        "--per-chain-limit",
+        type=int,
+        default=5,
+        help="Max markets per chain after deterministic sampling (default: 5)",
+    )
+    parser.add_argument(
         "--manifest-path",
         type=Path,
         default=None,
@@ -68,6 +74,7 @@ def main(argv: list[str] | None = None) -> int:
             client,
             protocol=args.protocol,
             limit=args.limit,
+            per_chain_limit=args.per_chain_limit,
             ruleset_version=ruleset,
             manifest_path=manifest_path,
             official_for_market=_mirror_official_from_backend,

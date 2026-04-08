@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "httpx>=0.27",
+    "playwright>=1.55.0",
     "pyyaml>=6.0",
+    "web3>=7.13.0",
 ]
 
 [project.optional-dependencies]
@@ -19,7 +21,7 @@ requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
-packages = ["scripts", "validators"]
+packages = ["scripts", "validators", "validators.protocol_adapters"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

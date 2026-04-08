@@ -3,3 +3,5 @@
 __pycache__/
 *.pyc
 omrate_agentops.egg-info/
+artifacts/
+reports/live-validation/*.json

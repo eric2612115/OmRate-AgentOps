@@ -1,0 +1,171 @@
+version: 1
+description: >
+  Pinned official website, app host, API base, and market-page URL references for
+  OmRate live validation. DefiLlama is only used for authenticity cross-checks.
+protocols:
+  aave_v3:
+    defillama_slug: aave-v3
+    official_website_url: https://aave.com/
+    trusted_app_hosts:
+      - app.aave.com
+    official_api_base: https://api.v3.aave.com/graphql
+    official_source_kind: graphql
+    market_url_templates:
+      - https://app.aave.com/reserve-overview/?underlyingAsset={debt_token_address}&marketName={market_name}
+    market_url_notes:
+      - market_name is chain-specific and currently follows backend schema_links mapping.
+    runtime_metadata:
+      chain_market_names:
+        1: proto_mainnet_v3
+        10: proto_optimism_v3
+        56: proto_bnb_v3
+        100: proto_gnosis_v3
+        137: proto_polygon_v3
+        196: proto_xlayer_v3
+        8453: proto_base_v3
+        42161: proto_arbitrum_v3
+        43114: proto_avalanche_v3
+        534352: proto_scroll_v3
+  morpho:
+    defillama_slug: morpho
+    official_website_url: https://morpho.org/
+    trusted_app_hosts:
+      - app.morpho.org
+    official_api_base: https://api.morpho.org/graphql
+    official_source_kind: graphql
+    market_url_templates:
+      - https://app.morpho.org/{network}/market/{unique_key}/{pair_slug}
+    runtime_metadata:
+      chain_networks:
+        1: ethereum
+        10: optimism
+        137: polygon
+        8453: base
+        42161: arbitrum
+        43114: avalanche
+  euler_v2:
+    defillama_slug: euler-v2
+    official_website_url: https://www.eulerlabs.com/
+    trusted_app_hosts:
+      - app.euler.finance
+    official_api_base: https://api.goldsky.com/api/public/project_cm4iagnemt1wp01xn4gh1agft/subgraphs
+    official_source_kind: subgraph
+    market_url_templates:
+      - https://app.euler.finance/vault/{vault_address}?network={chain_slug}
+    runtime_metadata:
+      chain_subgraphs:
+        1: euler-v2-mainnet
+        146: euler-v2-sonic
+        8453: euler-v2-base
+        42161: euler-v2-arbitrum
+      chain_slugs:
+        1: ethereum
+        146: sonic
+        8453: base
+        42161: arbitrumone
+  venus:
+    defillama_slug: venus
+    official_website_url: https://www.venus.io/
+    trusted_app_hosts:
+      - app.venus.io
+      - venus.io
+    official_api_base: https://api.venus.io
+    official_source_kind: rest
+    market_url_templates:
+      - https://venus.io/market#/markets/{pool_address}?chainId={chain_id}&tab=markets
+      - https://venus.io/market#/markets/{pool_address}/{market_address}?chainId={chain_id}&tab=supply
+    market_url_notes:
+      - markets/{pool}?chainId=... is the pool landing page.
+      - markets/{pool}/{market}?chainId=...&tab=supply is the working market deep-link pattern.
+    runtime_metadata:
+      core_pool_path: /markets/core-pool
+      isolated_pools_path: /pools
+  fluid:
+    defillama_slug: fluid
+    official_website_url: https://fluid.io/
+    trusted_app_hosts:
+      - fluid.io
+    official_api_base: null
+    official_source_kind: onchain
+    market_url_templates:
+      - https://fluid.io/vaults/{chain_id}/{vault_index}
+    market_url_notes:
+      - market facts come from the official resolver / onchain source, not a public REST API.
+    runtime_metadata:
+      resolver_addresses:
+        1: "0x48D32f49aFeAEC7AE66ad7B9264f446fc11a1569"
+        42161: "0x48D32f49aFeAEC7AE66ad7B9264f446fc11a1569"
+  termmax:
+    defillama_slug: termmax
+    official_website_url: https://ts.finance/termmax/
+    trusted_app_hosts:
+      - app.termmax.ts.finance
+    official_api_base: https://termmax-api-v2.dev.termstructure.io
+    official_source_kind: rest
+    market_url_templates:
+      - https://app.termmax.ts.finance/market/{chain_slug}/{pool_address}?chain={chain_slug}&persistChain=1
+    runtime_metadata:
+      list_path: /market/list
+      chain_slugs:
+        1: eth
+        10: op
+        56: bnb
+        8453: base
+        42161: arb
+  lista:
+    defillama_slug: lista-dao
+    official_website_url: https://www.lista.org/
+    trusted_app_hosts:
+      - lista.org
+      - lista.dao
+    official_api_base: null
+    official_source_kind: onchain_cdp
+    market_url_templates:
+      - https://lista.org/dashboard
+    market_url_notes:
+      - Lista market pages are effectively protocol/dashboard entry pages rather than per-market deep links.
+    runtime_metadata:
+      chain_id: 56
+      lisusd:
+        address: "0x0782b6d8c4551B9760e74c0545a9bCD90bdc41E5"
+        symbol: lisUSD
+        decimals: 18
+      contracts:
+        interaction: "0xB68443Ee3e828baD1526b3e0Bdf2Dfc6b1975ec4"
+        jug: "0x787BdEaa29A253e40feB35026c3d05C18CbCA7B3"
+        vat: "0x33A34eAB3ee892D40420507B820347b1cA2201c4"
+      collaterals:
+        - symbol: slisBNB
+          decimals: 18
+          address: "0xB0b84D294e0C75A6abe60171b70edEb2EFd14A1B"
+          gem_join: "0x91e49983598685dd5acac90ceb4061a772f6e5ae"
+          ilk_hex: 536e424e42000000000000000000000000000000000000000000000000000000
+        - symbol: wBETH
+          decimals: 18
+          address: "0xa2E3356610840701BDf5611a53974510Ae27E2e1"
+          gem_join: "0xf45c3b619ee86f653805e007fe211b7e930e0b3b"
+          ilk_hex: 7742455448000000000000000000000000000000000000000000000000000000
+        - symbol: BTCB
+          decimals: 18
+          address: "0x7130d2A12B9BCbFAe4f2634d864A1Ee1Ce3Ead9c"
+          gem_join: "0xad9eAAe95617c39019aCC42301a1dCa4ea5b6f65"
+          ilk_hex: 4254434200000000000000000000000000000000000000000000000000000000
+  pendle:
+    defillama_slug: pendle
+    official_website_url: https://www.pendle.finance/
+    trusted_app_hosts:
+      - app.pendle.finance
+    official_api_base: https://api-v2.pendle.finance/core
+    official_source_kind: rest
+    market_url_templates:
+      - https://app.pendle.finance/trade/markets/{pool_address}?chain={chain_name}
+      - https://app.pendle.finance/trade/markets?chain={chain_name}
+    runtime_metadata:
+      market_list_path_template: /v1/{chain_id}/markets
+      chain_names:
+        1: ethereum
+        10: optimism
+        56: bsc
+        5000: mantle
+        8453: base
+        42161: arbitrum
