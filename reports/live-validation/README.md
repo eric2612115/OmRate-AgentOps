@@ -1,10 +1,12 @@
 # Live validation matrix reports
 
+This directory is the active path for live-validation report outputs.
+
 JSON artifacts emitted by `scripts/run_live_validation_matrix.py` are written here by default
 (`matrix_<UTC-timestamp>.json` unless `--output` is set).
 
-Until live official fetch is wired into the matrix CLI, pass `--recorded-payloads <file.json>`
-with a JSON object mapping `protocol_id -> recorded official payload`.
+Historical checked outputs should be moved to `reports/archive/live-validation/` once they are
+no longer the current source of truth for an active workflow.
 
 Each file validates against the schema implemented in `validators/report_schema.py`
 (`LiveValidationReport` / `LiveValidationRow`). Use `load_report()` to parse and enforce
